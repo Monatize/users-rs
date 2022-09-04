@@ -3258,16 +3258,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "server"
-version = "0.1.0"
-dependencies = [
- "axum",
- "prisma-client-rust",
- "serde_json",
- "tokio",
-]
-
-[[package]]
 name = "sha-1"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4015,6 +4005,17 @@ dependencies = [
  "serde_json",
  "tracing",
  "user-facing-error-macros",
+]
+
+[[package]]
+name = "users_rs"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "prisma-client-rust",
+ "serde",
+ "serde_json",
+ "tokio",
 ]
 
 [[package]]

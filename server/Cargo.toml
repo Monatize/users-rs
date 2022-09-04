@@ -3,7 +3,7 @@ name = "users_rs"
 version = "0.1.0"
 edition = "2021"
 description = "User auth microservice for Monatize w/ Axum and Prisma"
-authors="TheLDB <ldb@erikboles.com>"
+# authors="TheLDB <ldb@erikboles.com>"
 repository = "https://github.com/Monatize/users-rs"
 license = "MIT OR Apache-2.0"
 
@@ -14,3 +14,4 @@ axum = { version = "0.5.15" }
 tokio = { version = "1.0", features = ["full"] }
 serde_json = { version = " 1.0.85" }
 prisma-client-rust = { git = "https://github.com/Brendonovich/prisma-client-rust", tag = "0.6.0" }
+serde = "1.0.144"
