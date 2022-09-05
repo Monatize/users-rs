@@ -1,11 +1,29 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider = "cargo prisma"
+  output = "../src/prisma.rs"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model stores {
+  store_id          String    @id @db.VarChar(52)
+  creator           String    @db.VarChar(150)
+  store_name        String    @db.VarChar(80)
+  store_description String    @db.VarChar(256)
+  store_tier        String    @db.VarChar(25)
+  store_ip          String?   @db.VarChar(90)
+  store_domain      String?   @db.VarChar(500)
+  created_on        DateTime  @db.Timestamptz(6)
+  updated_on        DateTime? @db.Timestamptz(6)
+}
+
+model users {
+  address    String    @id @db.VarChar(300)
+  signature  String    @db.VarChar(300)
+  nonce      String    @db.VarChar(100)
+  created_on DateTime  @db.Timestamptz(6)
+  updated_on DateTime? @db.Timestamptz(6)
 }
