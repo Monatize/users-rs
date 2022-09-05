@@ -15,7 +15,7 @@ pub struct User {
 
 pub async fn entry(
     Json(payload): Json<User>,
-    ctx: Database
+    _ctx: Database
 ) -> Json<Value> {   
     let [address, signature, nonce] = [payload.address, payload.signature, payload.nonce];
 
@@ -27,10 +27,18 @@ pub async fn entry(
         }))
     }
 
-    // * Verify that the signature is valid and matches the address
-    let complete_msg = utils::get_message::get_message(nonce);
+    let pubkey = utils::get_pubkey::get_pubkey(address, nonce, signature);
+
+    match pubkey {
+        Ok(pubkey) => {
+            println!("{}", pubkey)
+        }
+        Err(e) => {
+            println!("{}", e)
+        }
+    }
 
     Json(json!({
-        "ahh": "ahh"
+        "test": "testing"
     }))
 }
