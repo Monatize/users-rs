@@ -1,6 +1,6 @@
 generator client {
   provider = "cargo prisma"
-  output = "../src/prisma.rs"
+  output   = "../src/prisma.rs"
 }
 
 datasource db {
@@ -24,6 +24,6 @@ model users {
   address    String    @id @db.VarChar(300)
   signature  String    @db.VarChar(300)
   nonce      String    @db.VarChar(100)
-  created_on DateTime  @db.Timestamptz(6)
-  updated_on DateTime? @db.Timestamptz(6)
+  created_on DateTime  @db.Timestamp(6)
+  updated_on DateTime? @db.Timestamp(6)
 }
