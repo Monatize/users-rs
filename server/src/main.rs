@@ -7,7 +7,7 @@ use std::{net::SocketAddr, sync::Arc};
 pub mod routes;
 pub mod utils;
 pub mod types;
-use routes::{entry::entry, handler::handler};
+use routes::{entry::entry, handler::handler, authentication::authentication};
 pub mod prisma;
 use prisma::{PrismaClient};
 use dotenv::dotenv;
@@ -22,6 +22,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(handler))
         .route("/entry", post(entry))
+        .route("/authorization", get(authentication))
         .layer(Extension(client));
 
     // run it
