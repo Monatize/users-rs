@@ -15,7 +15,9 @@ This microservice was built to handle user signup, login, and authentication.
 
 # Tech Stack
 **Language** - [Rust](https://www.rust-lang.org/)
+
 **Web Server Library** - [Axum](https://github.com/tokio-rs/axum)
+
 **Important Deps**
 - [prisma-client-rust](https://github.com/Brendonovich/prisma-client-rust) by [Brendonovich](https://github.com/Brendonovich)
     - Make transactions & queries to the PostgresQL DB's
