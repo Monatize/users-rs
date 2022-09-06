@@ -3,12 +3,12 @@ use crate::types::entry::status::StatusCodes;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct EntrySuccess {
-    status: StatusCodes,
-    data: Data,
-    message: String, 
+    pub status: StatusCodes,
+    pub data: SuccessData,
+    pub message: String, 
 }
 
 #[derive(Debug, Deserialize, Serialize)]
-pub struct Data {
-    token: String
+pub struct SuccessData {
+    pub token: String
 }
