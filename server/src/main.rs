@@ -1,19 +1,30 @@
+// * Rust Libs
+use std::{net::SocketAddr, sync::Arc};
+// * Rust Libs
+
+// * 3rd Party Libs
 use axum::{
     extract::Extension,
-    http::{HeaderValue, Method},
     routing::{get, post},
     Router,
 };
-use std::{net::SocketAddr, sync::Arc};
 use tower::ServiceBuilder;
-use tower_http::cors::{CorsLayer, Any};
+use tower_http::cors::CorsLayer;
+use prisma::PrismaClient;
+pub mod prisma;
+use dotenv::dotenv;
+// * 3rd Party Libs
+
+// * Local Imports
 pub mod routes;
 pub mod types;
 pub mod utils;
 use routes::{authentication::authentication, entry::entry, handler::handler};
-pub mod prisma;
-use dotenv::dotenv;
-use prisma::PrismaClient;
+// * Local Imports
+
+
+
+
 
 #[tokio::main]
 async fn main() {
