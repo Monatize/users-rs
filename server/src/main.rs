@@ -6,6 +6,7 @@ use axum::{
 use std::{net::SocketAddr, sync::Arc};
 pub mod routes;
 pub mod utils;
+pub mod types;
 use routes::{entry::entry, handler::handler};
 pub mod prisma;
 use prisma::{PrismaClient};
