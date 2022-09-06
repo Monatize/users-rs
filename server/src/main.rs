@@ -22,7 +22,7 @@ async fn main() {
     let app = Router::new()
         .route("/", get(handler))
         .route("/entry", post(entry))
-        .route("/authorization", get(authentication))
+        .route("/authorization", post(authentication))
         .layer(Extension(client));
 
     // run it

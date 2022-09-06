@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use crate::types::entry::status::StatusCodes;
+use crate::types::shared::status::StatusCodes;
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct EntryError {
