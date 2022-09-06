@@ -7,9 +7,9 @@ use std::env;
 use axum::{Extension, http::{StatusCode, HeaderMap}, response::IntoResponse, Json};
 use jsonwebtoken::{decode, Validation, DecodingKey};
 use dotenv::dotenv;
-// use serde_json::json;
+use serde_json::json;
  // * Bring in prisma connection from main.rs, and return JSON responses/status
-use crate::{prisma, types::{shared::jwt::Claims, authentication::user::User}}; // * Query Models & bring in prisma connection from main.rs
+use crate::{prisma, types::{shared::{jwt::Claims, status::StatusCodes}, authentication::{user::User, success::{AuthSuccess, SuccessData}, error::{AuthError, Data}}}}; // * Query Models & bring in prisma connection from main.rs
 // 3rd Party Libs
 
 // Local Imports
@@ -34,21 +34,61 @@ pub async fn authentication(
             match token_data {
                 Ok(data) => {
                     if payload.address.to_lowercase() == data.claims.address.to_lowercase() {
+                        let success_data = SuccessData {
+                            verified: true
+                        };
 
+                        let success_struct = AuthSuccess {
+                            status: StatusCodes::Success,
+                            data: success_data,
+                            message: String::from("Authorized")
+                        };
+
+                        (StatusCode::OK, Json(json!(success_struct)))
                     }
                     else {
+                        let error_data = Data {
+                            verified: false
+                        };
+    
+                        let error_struct = AuthError {
+                            status: StatusCodes::Unauthorized,
+                            data: error_data,
+                            message: String::from("Unauthorized")
+                        };
 
+                        (StatusCode::UNAUTHORIZED, Json(json!(error_struct)))
                     }
                 }
-                Err(e) => {
-                    println!("{}", e);
+                Err(_) => {
+                    let error_data = Data {
+                        verified: false
+                    };
+
+                    let error_struct = AuthError {
+                        status: StatusCodes::Unauthorized,
+                        data: error_data,
+                        message: String::from("Unauthorized")
+                    };
+
+                    (StatusCode::UNAUTHORIZED, Json(json!(error_struct)))
                 }
             }
 
         }
         None => {
-            
+            let error_data = Data {
+                verified: false
+            };
+
+            let error_struct = AuthError {
+                status: StatusCodes::Unauthorized,
+                data: error_data,
+                message: String::from("Unauthorized")
+            };
+
+            (StatusCode::UNAUTHORIZED, Json(json!(error_struct))) 
         }
     }
-    (StatusCode::OK, "hi")
 }
+
