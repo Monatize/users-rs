@@ -14,8 +14,8 @@ use dotenv::dotenv; // * Call in vars from .env
 
 // Local Imports
 use crate::utils; // * Generate ETH Signed Message/Get Public Key from signature
-use crate::types::entry::{error::{EntryError, Data}, success::{EntrySuccess, SuccessData}, jwt::Claims, user::User}; // * Success Model for API
-use crate::types::shared::status::StatusCodes;
+use crate::types::entry::{error::{EntryError, Data}, success::{EntrySuccess, SuccessData}, user::User}; // * Success Model for API
+use crate::types::shared::{jwt::Claims, status::StatusCodes};
 // Local Imports
 
 // Types

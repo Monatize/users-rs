@@ -1,0 +1,14 @@
+use serde::{Deserialize, Serialize};
+use crate::types::shared::status::StatusCodes;
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct AuthSuccess {
+    pub status: StatusCodes,
+    pub data: SuccessData,
+    pub message: String, 
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct SuccessData {
+    pub verified: bool
+}

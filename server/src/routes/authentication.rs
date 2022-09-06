@@ -9,7 +9,7 @@ use jsonwebtoken::{decode, Validation, DecodingKey};
 use dotenv::dotenv;
 // use serde_json::json;
  // * Bring in prisma connection from main.rs, and return JSON responses/status
-use crate::{prisma, types::{entry::jwt::Claims, authentication::user::User}}; // * Query Models & bring in prisma connection from main.rs
+use crate::{prisma, types::{shared::jwt::Claims, authentication::user::User}}; // * Query Models & bring in prisma connection from main.rs
 // 3rd Party Libs
 
 // Local Imports
@@ -34,7 +34,7 @@ pub async fn authentication(
             match token_data {
                 Ok(data) => {
                     if payload.address.to_lowercase() == data.claims.address.to_lowercase() {
-                        
+
                     }
                     else {
 
