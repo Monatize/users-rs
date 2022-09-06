@@ -28,7 +28,6 @@ pub async fn entry(
 ) -> impl IntoResponse {   
     let [address, signature, nonce] = [payload.address, payload.signature, payload.nonce];
     dotenv().ok();
-
     let pubkey = utils::get_pubkey::get_pubkey(address.clone(), nonce.clone(), signature.clone());
 
     match pubkey {

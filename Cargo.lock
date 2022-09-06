@@ -4750,6 +4750,8 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio 1.21.0",
+ "tower",
+ "tower-http",
  "web3",
 ]
 
