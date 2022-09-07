@@ -1,0 +1,19 @@
+{
+  "name": "users-rs",
+  "version": "1.0.0",
+  "description": "The users microservice for the Monatize Microservice Architecture",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "cargo run",
+    "start:prod": "pm2 start target/debug/users-rs --watch"
+  },
+  "keywords": [
+    "monatize",
+    "microservice"
+  ],
+  "author": "Monatize Labs LLC",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "pm2": "^5.2.0"
+  }
+}

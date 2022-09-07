@@ -6,7 +6,7 @@ use std::{net::SocketAddr, sync::Arc};
 use axum::{
     extract::Extension,
     routing::{get, post},
-    Router,
+    Router, http::{header::{AUTHORIZATION, ACCEPT, CONTENT_TYPE}, Method},
 };
 use tower::ServiceBuilder;
 use tower_http::cors::CorsLayer;
@@ -39,7 +39,9 @@ async fn main() {
         .route("/authorization", post(authentication))
         .layer(
             ServiceBuilder::new().layer(Extension(client)).layer(
-                CorsLayer::very_permissive()
+                CorsLayer::new()
+                    .allow_headers([AUTHORIZATION, ACCEPT, CONTENT_TYPE])
+                    .allow_methods([Method::GET, Method::POST, Method::OPTIONS, Method::PATCH])
             ),
         );
 

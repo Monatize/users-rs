@@ -21,3 +21,4 @@ dotenv = "0.15.0"
 web3 = "0.15.0" # MUST use web3 0.15.0, 0.16.0 and above has breaking changes w/ bitvec & prisma-client-rust/mysql_common
 hex = "0.4.3"
 jsonwebtoken = "8.1.1"
+impl-codec = "0.6.0"
