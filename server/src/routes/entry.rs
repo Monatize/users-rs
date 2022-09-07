@@ -75,7 +75,7 @@ pub async fn entry(
                                 return (StatusCode::OK, Json(json!(success_struct)))
 
                             }
-                            Err(_) => {
+                            Err(e) => {
                                 let error_data = Data {
                                     token: None
                                 };
@@ -86,11 +86,16 @@ pub async fn entry(
                                     message: String::from("Uh oh! Seems like we had a backend issue, please try again or contact us.")
                                 };
 
+                                println!("JWT could not be encoded");
+                                println!("Address: {}", address);
+                                println!("Nonce: {}", nonce);
+                                println!("Signature: {}", signature);
+                                println!("Encoding Error: {:?}", e);
                                 return (StatusCode::INTERNAL_SERVER_ERROR, Json(json!(error_struct)))
                             }
                         }
                     }
-                    Err(_) => {
+                    Err(e) => {
                         let error_data = Data {
                             token: None
                         };
@@ -98,9 +103,14 @@ pub async fn entry(
                         let error_struct = EntryError {
                             status: StatusCodes::ServerError,
                             data: error_data,
-                            message: String::from("")
+                            message: String::from("Uh oh! Seems like we had a backend issue, please try again or contact us.")
                         };
-
+                        
+                        println!("Data could not be upserted");
+                        println!("Address: {}", address);
+                        println!("Nonce: {}", nonce);
+                        println!("Signature: {}", signature);
+                        println!("Upsert Error: {:?}", e);
                         return (StatusCode::INTERNAL_SERVER_ERROR, Json(json!(error_struct)))
                     }
                 }
@@ -113,16 +123,20 @@ pub async fn entry(
                 let error_struct = EntryError {
                     status: StatusCodes::Unauthorized,
                     data: error_data,
-                    message: String::from("")
+                    message: String::from("Recovered pubkey did not match provided address")
                 };
-
+                println!("Recovered pubkey did not match provided address");
+                println!("Pubkey: {}", pubkey.to_lowercase());
+                println!("Lowercase Address: {}", address.to_lowercase());
+                println!("Address: {}", address);
+                println!("Nonce: {}", nonce);
+                println!("Signature: {}", signature);
                 return (StatusCode::UNAUTHORIZED, Json(json!(error_struct)))
             }
         }
         
         // * If the get_pubkey() request failed, return an Error
         Err(e) => {
-            println!("{}", e);
             let error_data = Data {
                 token: None
             };
@@ -130,9 +144,14 @@ pub async fn entry(
             let error_struct = EntryError {
                 status: StatusCodes::ServerError,
                 data: error_data,
-                message: String::from("")
+                message: String::from("Couldn't retrieve pubkey")
             };
 
+            println!("Couldn't retrieve pubkey!");
+            println!("Address: {}", address.to_lowercase());
+            println!("Nonce: {}", nonce);
+            println!("Signature: {}", signature);
+            println!("Error: {}", e);
             return (StatusCode::BAD_REQUEST, Json(json!(error_struct)))
         }
     }

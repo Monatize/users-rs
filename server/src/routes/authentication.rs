@@ -54,13 +54,16 @@ pub async fn authentication(
                         let error_struct = AuthError {
                             status: StatusCodes::Unauthorized,
                             data: error_data,
-                            message: String::from("Unauthorized")
+                            message: String::from("Payload Address did not match claims address")
                         };
 
+                        println!("Payload Address did NOT match claims address");
+                        println!("Payload Address: {}", payload.address.to_lowercase());
+                        println!("Claims Address: {}", data.claims.address.to_lowercase());
                         (StatusCode::UNAUTHORIZED, Json(json!(error_struct)))
                     }
                 }
-                Err(_) => {
+                Err(e) => {
                     let error_data = Data {
                         verified: false
                     };
@@ -68,9 +71,11 @@ pub async fn authentication(
                     let error_struct = AuthError {
                         status: StatusCodes::Unauthorized,
                         data: error_data,
-                        message: String::from("Unauthorized")
+                        message: String::from("Claim could not be decoded")
                     };
-
+                    println!("Claim could not be decoded");
+                    println!("Address: {}", payload.address.to_lowercase());
+                    println!("Error: {:?}", e);
                     (StatusCode::UNAUTHORIZED, Json(json!(error_struct)))
                 }
             }
@@ -84,9 +89,10 @@ pub async fn authentication(
             let error_struct = AuthError {
                 status: StatusCodes::Unauthorized,
                 data: error_data,
-                message: String::from("Unauthorized")
+                message: String::from("No authorization header found!")
             };
-
+            println!("No authorization header found!");
+            println!("Address: {}", payload.address.to_lowercase());
             (StatusCode::UNAUTHORIZED, Json(json!(error_struct))) 
         }
     }
